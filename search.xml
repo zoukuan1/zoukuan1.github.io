@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Windows10下使用Hexo和Github搭建个人博客</title>
+    <url>/2020/10/26/first-blog/</url>
+    <content><![CDATA[<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>   <strong>安装的基本思想是尽量不往C盘塞东西，所以尽可能选择其他盘来安装</strong>。</p>
+<ul>
+<li><p>安装Node</p>
+<p>前往Node官网 <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>  ，下载最新版LTS</p>
+<p><img src="/2020/10/26/first-blog/image-20201026211520822.png" alt="image-20201026211520822"></p>
+<p>打开<strong>node-v12.19.0-x64.msi</strong>文件进行安装</p>
+<p><img src="/2020/10/26/first-blog/image-20201026211720405.png" alt="image-20201026211720405"></p>
+</li>
+</ul>
+<p>  <img src="/2020/10/26/first-blog/image-20201026211807081.png" alt="image-20201026211807081"></p>
+<p>  <img src="/2020/10/26/first-blog/image-20201026211852195.png" alt="image-20201026211852195"></p>
+<p>  出现下图，证明Node安装成功</p>
+<p>  <img src="/2020/10/26/first-blog/image-20201026212001614.png" alt="image-20201026212001614"></p>
+<p>  连按两次回车(<strong>ENTER</strong>)，然后直接关闭</p>
+<ul>
+<li><p>安装Git</p>
+<p>前往Git下载网站 <a href="https://git-scm.com/">https://git-scm.com/</a> ，选择适当版本下载。</p>
+<p><img src="/2020/10/26/first-blog/image-20201026225441753.png" alt="image-20201026225441753"></p>
+<p>打开<strong>Git-2.29.1-64-bit.exe</strong>文件进行安装</p>
+<p><img src="/2020/10/26/first-blog/image-20201026225635141.png" alt="image-20201026225635141"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026225658007.png" alt="image-20201026225658007"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230122943.png" alt="image-20201026230122943"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230152838.png" alt="image-20201026230152838"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230209507.png" alt="image-20201026230209507"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230337386.png" alt="image-20201026230337386"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230357482.png" alt="image-20201026230357482"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230441681.png" alt="image-20201026230441681"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230458800.png" alt="image-20201026230458800"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230520232.png" alt="image-20201026230520232"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230538588.png" alt="image-20201026230538588"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230606097.png" alt="image-20201026230606097"></p>
+<p>​    成功结果如下：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026230903894.png" alt="image-20201026230903894"></p>
+</li>
+</ul>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="1-以管理员方式打开cmd"><a href="#1-以管理员方式打开cmd" class="headerlink" title="1.以管理员方式打开cmd"></a>1.以管理员方式打开cmd</h3><p>​        我的方法如下：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026212538303.png" alt="image-20201026212538303"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026212703489.png" alt="image-20201026212703489"></p>
+<h3 id="2-查看并验证Node安装结果"><a href="#2-查看并验证Node安装结果" class="headerlink" title="2.查看并验证Node安装结果"></a>2.查看并验证Node安装结果</h3><p>​        <strong>cmd</strong>命令行输入 <code>node -v</code> ，查看<strong>Node</strong>版本；输入 <code>npm -v</code> ，查看包管理器<strong>npm</strong>版本</p>
+<p><img src="/2020/10/26/first-blog/image-20201026213543111.png" alt="image-20201026213543111"></p>
+<h3 id="3-安装淘宝的包管理器cnpm"><a href="#3-安装淘宝的包管理器cnpm" class="headerlink" title="3.安装淘宝的包管理器cnpm"></a>3.安装淘宝的包管理器cnpm</h3><p>​        考虑到镜像下载速度的快慢，选择使用国内的包管理器对包进行安装，这里采用淘宝的cnpm。</p>
+<p>​        在<strong>cmd</strong>命令行里输入 <code>npm install -g cnpm --registry=http://registry.npm.taobao.org</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026222106396.png" alt="image-20201026222106396"></p>
+<p>​        验证<strong>cnpm</strong>安装结果，命令行输入 <code>cnpm -v</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026222245104.png" alt="image-20201026222245104"></p>
+<h3 id="4-安装hexo"><a href="#4-安装hexo" class="headerlink" title="4.安装hexo"></a>4.安装hexo</h3><p>​        安装好<strong>cnpm</strong>后，在<strong>cmd</strong>命令行里输入 <code>cnpm install -g hexo-cli</code> ，安装<strong>hexo</strong></p>
+<p><img src="/2020/10/26/first-blog/image-20201026224243864.png" alt="image-20201026224243864"></p>
+<p>​        验证hexo安装结果，<strong>cmd</strong>命令行输入 <code>hexo -v</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026224411245.png" alt="image-20201026224411245"></p>
+<h3 id="5-创建Blog文件夹"><a href="#5-创建Blog文件夹" class="headerlink" title="5.创建Blog文件夹"></a>5.创建Blog文件夹</h3><p>​        首先创建Blog文件夹，用来存储编写的Blog。文件夹的位置由自己定夺，我选择在E盘处新建</p>
+<p>​        <strong>myblog</strong>文件夹 ，如下图：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026224907157.png" alt="image-20201026224907157"></p>
+<p>​        然后在<strong>cmd</strong>命令行输入 <code>cd E:/myblog</code> ，将当前路径转到目标文件夹。</p>
+<h3 id="6-配置Git"><a href="#6-配置Git" class="headerlink" title="6.配置Git"></a>6.配置Git</h3><p>​        打开安装好的 <strong>git-bash.exe</strong>，命令行输入 <code>git config --global user.name &quot;xxx&quot;</code> 和 <code>git config --global user.email &quot;xxx@xx.com&quot;</code> ，配置git用户的名称和邮箱。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027165954462.png" alt="image-20201027165954462"></p>
+<p>​        然后在本地生成ssh密钥， <strong>git-bash</strong>里输入 <code>ssh-keygen -t rsa -C &quot;xx@xxx.com&quot;</code> ，即可得到密钥。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027170525522.png" alt="image-20201027170525522"></p>
+<p>​        在上图中显示文件保存在c盘local本地，进入到**.ssh<strong>文件夹，查看以</strong>ssh-rsa**开头的密钥。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027170845850.png" alt="image-20201027170845850"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027170931203.png" alt="image-20201027170931203"></p>
+<p>​        复制密钥，然后在github官网里打开个人设置</p>
+<p><img src="/2020/10/26/first-blog/image-20201027171157545.png" alt="image-20201027171157545"></p>
+<p>​        在设置的左边功能栏里选择 <strong>SSH and GPG Keys</strong>， 选择<strong>New SSH key</strong> , 不用写标题，直接将刚刚复制的密钥粘贴，。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027171254715.png" alt="image-20201027171254715"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027171434239.png" alt="image-20201027171434239"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027171641121.png" alt="image-20201027171641121"></p>
+<h3 id="7-Blog初始化"><a href="#7-Blog初始化" class="headerlink" title="7.Blog初始化"></a>7.Blog初始化</h3><p>​        配置好git后，在<strong>git-bash</strong>里输入 <code>cd /e/myblog</code> , 将当前路径转移到目标文件夹，再输入<code>hexo init</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201027172021077.png" alt="image-20201027172021077"></p>
+<p>​        然后在 <strong>cmd</strong> 命令行里输入<code>hexo s</code> ，启动hexo</p>
+<p><img src="/2020/10/26/first-blog/image-20201027172159713.png" alt="image-20201027172159713"></p>
+<p>​        在浏览器上打开 <strong>localhost:4000</strong>，即可查看我们编写的blog，在此已完成blog平台的搭建</p>
+<p><img src="/2020/10/26/first-blog/image-20201027172403843.png" alt="image-20201027172403843"></p>
+<p>​        此时可以编写新的blog，在<strong>cmd</strong>命令行里输入 <strong>ctrl+c</strong> ，再输入<strong>Y</strong> ， 终止hexo运行， 这时候无法进入上述网址。输入<code>hexo n &quot;my first blog&quot;</code> ，在<strong>E://myblog/source/_posts</strong>文件夹里存在一个新建的md文件，这就是blog，以后每个新的blog都将保存在这里。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173141927.png" alt="image-20201027173141927"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027173229694.png" alt="image-20201027173229694"></p>
+<p>​        在这里可以选择相应的md编写软件来对md文件进行编辑，我选择Typora，当然也可以用记事本，但输入的语言格式要符合md规范。然后cmd命令行里输入<code>hexo g</code> ，将新写的blog发布。如果输入<code>hexo clean</code> ，可以清理数据库缓存。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173716448.png" alt="image-20201027173716448"></p>
+<p>​        这时候再输入<code>hexo s</code> ，在<strong>localhost:4000</strong>里即可看到新发布的blog</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173844199.png" alt="image-20201027173844199"></p>
+<h3 id="8-配置公网网址"><a href="#8-配置公网网址" class="headerlink" title="8.配置公网网址"></a>8.配置公网网址</h3><p>​        此时的blog网址只能自己本地查看，外人无法进入浏览，此时借由github搭建公网网址。首先在github上新建仓库，仓库名为用户名组成的github网址，<strong>必须与用户名相同</strong>。这个仓库名就是之后让外人进入你blog的网址。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027174056649.png" alt="image-20201027174056649"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027200019309.png" alt="image-20201027200019309"></p>
+<p>​        回到<strong>cmd</strong>命令行，先退出hexo，然后输入<code>cnpm install --save hexo-deployer-git</code> </p>
+<p><img src="/2020/10/26/first-blog/image-20201027174754884.png" alt="image-20201027174754884"></p>
+<p>​        在E://myblog文件夹里找到<strong>_config.yml</strong>文件，对其配置。在最后地方的 <strong>type:””**处，往</strong>‘’<strong>里写入</strong>git<strong>，然后换行写入 **repo: ‘’</strong> ，(<strong>注意在 : 后加一个空格，再写’’</strong>)，**’’<strong>里写入刚刚新建的仓库链接，即</strong>仓库页面的HTTPS | SSH处展示的链接<strong>，复制写入即可。再换行写入</strong>branch: ‘master’** ，保存文件。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027174929832.png" alt="image-20201027174929832"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027175408829.png" alt="image-20201027175408829"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027175642042.png" alt="image-20201027175642042"></p>
+<p>​       然后在<strong>git-bash</strong>命令行里输入<code>hexo d</code> ，将blog部署到github远端，过程中输入**github的用户名和密码(第一次部署要输入)**，即可完成远端部署。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027180949005.png" alt="image-20201027180949005"></p>
+<hr>
+<h2 id="Blog发布的步骤"><a href="#Blog发布的步骤" class="headerlink" title="Blog发布的步骤"></a>Blog发布的步骤</h2><h3 id="1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件"><a href="#1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件" class="headerlink" title="1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件"></a>1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</h3><h3 id="2-对md文件进行编辑"><a href="#2-对md文件进行编辑" class="headerlink" title="2.对md文件进行编辑"></a>2.对md文件进行编辑</h3><h3 id="3-在cmd命令行里输入-hexo-g-，生成blog"><a href="#3-在cmd命令行里输入-hexo-g-，生成blog" class="headerlink" title="3.在cmd命令行里输入 hexo -g ，生成blog"></a>3.在cmd命令行里输入 hexo -g ，生成blog</h3><h3 id="4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000"><a href="#4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000" class="headerlink" title="(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))"></a>(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))</h3><h3 id="5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io"><a href="#5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io" class="headerlink" title="5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)"></a>5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</h3><hr>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="本地图片无法显示"><a href="#本地图片无法显示" class="headerlink" title="本地图片无法显示"></a>本地图片无法显示</h3><p>解决方法：首先在<strong>git-bash</strong>里输入<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code>，安装好插件后打开<strong>_config.yml</strong>文件，修改<code>post_asset_folder: false</code>为<code>post_asset_folder: true</code>。最后在<strong>blog/public/2020/10/26/first-blog</strong>处放入<strong>blog/source/_posts/first-blog.assets</strong>文件夹里的全部图片。</p>
+<p>解释：first-blog.assets为你编写的blog文件所使用的图片文件夹，当你放入图片到md文档时，会自动将图片保存到first-blog.assets里。hexo-asset-image是一个插件，可以将本地图片以正确格式插入到网页源码里。修改_config.yml的目的是让hexo能够调用该插件。blog的发布网址本质上是一个网站，该网站保存在public文件夹里。而每个博客都有自己的一个网页，hexo根据博客发布的时间来放置每个博客的index.html。以本博客为例，发布时间为2020/10/26，则hexo会在public文件夹里创建2020文件夹，在2020文件夹里创建10文件夹，以此类推，最后在26文件夹里创建博客文件夹，即以博客名命名的文件夹，这个文件夹下就放置本博客的index.html。hexo-assets-image的作用就是将图片的引用地址设置在此文件夹下，所以需要将本博客的图片文件夹first-blog.assets里的全部图片放到index.html所在的文件夹里，即可实现图片相对路径的调用，也就解决此问题。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+</search>
