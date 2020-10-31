@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前期准备   安装的基本思想是尽量不往C盘塞东西，所以尽可能选择其他盘来安装。  安装Node 前往Node官网 https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;  ，下载最新版LTS  打开node-v12.19.0-x64.msi文件进行安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows10下使用Hexo和Github搭建个人博客">
+<meta property="og:url" content="http://example.com/2020/10/26/first-blog/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="前期准备   安装的基本思想是尽量不往C盘塞东西，所以尽可能选择其他盘来安装。  安装Node 前往Node官网 https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;  ，下载最新版LTS  打开node-v12.19.0-x64.msi文件进行安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026211520822.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026211720405.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026211807081.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026211852195.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026212001614.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026225441753.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026225635141.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026225658007.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230122943.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230152838.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230209507.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230337386.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230357482.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230441681.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230458800.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230520232.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230538588.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230606097.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026230903894.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026212538303.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026212703489.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026213543111.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026222106396.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026222245104.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026224243864.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026224411245.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201026224907157.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027165954462.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027170525522.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027170845850.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027170931203.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027171157545.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027171254715.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027171434239.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027171641121.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027172021077.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027172159713.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027172403843.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027173141927.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027173229694.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027173716448.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027173844199.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027174056649.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027200019309.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027174754884.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027174929832.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027175408829.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027175642042.png">
+<meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027180949005.png">
+<meta property="article:published_time" content="2020-10-26T10:50:14.000Z">
+<meta property="article:modified_time" content="2020-10-29T05:39:18.366Z">
+<meta property="article:author" content="邹宽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/26/first-blog/image-20201026211520822.png">
+
+<link rel="canonical" href="http://example.com/2020/10/26/first-blog/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Windows10下使用Hexo和Github搭建个人博客 | 个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">2</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/zoukuan1" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/26/first-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.png">
+      <meta itemprop="name" content="邹宽">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows10下使用Hexo和Github搭建个人博客
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-26 18:50:14" itemprop="dateCreated datePublished" datetime="2020-10-26T18:50:14+08:00">2020-10-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-29 13:39:18" itemprop="dateModified" datetime="2020-10-29T13:39:18+08:00">2020-10-29</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>   <strong>安装的基本思想是尽量不往C盘塞东西，所以尽可能选择其他盘来安装</strong>。</p>
+<ul>
+<li><p>安装Node</p>
+<p>前往Node官网 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a>  ，下载最新版LTS</p>
+<p><img src="/2020/10/26/first-blog/image-20201026211520822.png" alt="image-20201026211520822"></p>
+<p>打开<strong>node-v12.19.0-x64.msi</strong>文件进行安装</p>
+<p><img src="/2020/10/26/first-blog/image-20201026211720405.png" alt="image-20201026211720405"></p>
+</li>
+</ul>
+<p>  <img src="/2020/10/26/first-blog/image-20201026211807081.png" alt="image-20201026211807081"></p>
+<p>  <img src="/2020/10/26/first-blog/image-20201026211852195.png" alt="image-20201026211852195"></p>
+<p>  出现下图，证明Node安装成功</p>
+<p>  <img src="/2020/10/26/first-blog/image-20201026212001614.png" alt="image-20201026212001614"></p>
+<p>  连按两次回车(<strong>ENTER</strong>)，然后直接关闭</p>
+<ul>
+<li><p>安装Git</p>
+<p>前往Git下载网站 <a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a> ，选择适当版本下载。</p>
+<p><img src="/2020/10/26/first-blog/image-20201026225441753.png" alt="image-20201026225441753"></p>
+<p>打开<strong>Git-2.29.1-64-bit.exe</strong>文件进行安装</p>
+<p><img src="/2020/10/26/first-blog/image-20201026225635141.png" alt="image-20201026225635141"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026225658007.png" alt="image-20201026225658007"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230122943.png" alt="image-20201026230122943"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230152838.png" alt="image-20201026230152838"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230209507.png" alt="image-20201026230209507"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230337386.png" alt="image-20201026230337386"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230357482.png" alt="image-20201026230357482"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230441681.png" alt="image-20201026230441681"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230458800.png" alt="image-20201026230458800"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230520232.png" alt="image-20201026230520232"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230538588.png" alt="image-20201026230538588"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026230606097.png" alt="image-20201026230606097"></p>
+<p>​    成功结果如下：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026230903894.png" alt="image-20201026230903894"></p>
+</li>
+</ul>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="1-以管理员方式打开cmd"><a href="#1-以管理员方式打开cmd" class="headerlink" title="1.以管理员方式打开cmd"></a>1.以管理员方式打开cmd</h3><p>​        我的方法如下：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026212538303.png" alt="image-20201026212538303"></p>
+<p><img src="/2020/10/26/first-blog/image-20201026212703489.png" alt="image-20201026212703489"></p>
+<h3 id="2-查看并验证Node安装结果"><a href="#2-查看并验证Node安装结果" class="headerlink" title="2.查看并验证Node安装结果"></a>2.查看并验证Node安装结果</h3><p>​        <strong>cmd</strong>命令行输入 <code>node -v</code> ，查看<strong>Node</strong>版本；输入 <code>npm -v</code> ，查看包管理器<strong>npm</strong>版本</p>
+<p><img src="/2020/10/26/first-blog/image-20201026213543111.png" alt="image-20201026213543111"></p>
+<h3 id="3-安装淘宝的包管理器cnpm"><a href="#3-安装淘宝的包管理器cnpm" class="headerlink" title="3.安装淘宝的包管理器cnpm"></a>3.安装淘宝的包管理器cnpm</h3><p>​        考虑到镜像下载速度的快慢，选择使用国内的包管理器对包进行安装，这里采用淘宝的cnpm。</p>
+<p>​        在<strong>cmd</strong>命令行里输入 <code>npm install -g cnpm --registry=http://registry.npm.taobao.org</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026222106396.png" alt="image-20201026222106396"></p>
+<p>​        验证<strong>cnpm</strong>安装结果，命令行输入 <code>cnpm -v</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026222245104.png" alt="image-20201026222245104"></p>
+<h3 id="4-安装hexo"><a href="#4-安装hexo" class="headerlink" title="4.安装hexo"></a>4.安装hexo</h3><p>​        安装好<strong>cnpm</strong>后，在<strong>cmd</strong>命令行里输入 <code>cnpm install -g hexo-cli</code> ，安装<strong>hexo</strong></p>
+<p><img src="/2020/10/26/first-blog/image-20201026224243864.png" alt="image-20201026224243864"></p>
+<p>​        验证hexo安装结果，<strong>cmd</strong>命令行输入 <code>hexo -v</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201026224411245.png" alt="image-20201026224411245"></p>
+<h3 id="5-创建Blog文件夹"><a href="#5-创建Blog文件夹" class="headerlink" title="5.创建Blog文件夹"></a>5.创建Blog文件夹</h3><p>​        首先创建Blog文件夹，用来存储编写的Blog。文件夹的位置由自己定夺，我选择在E盘处新建</p>
+<p>​        <strong>myblog</strong>文件夹 ，如下图：</p>
+<p><img src="/2020/10/26/first-blog/image-20201026224907157.png" alt="image-20201026224907157"></p>
+<p>​        然后在<strong>cmd</strong>命令行输入 <code>cd E:/myblog</code> ，将当前路径转到目标文件夹。</p>
+<h3 id="6-配置Git"><a href="#6-配置Git" class="headerlink" title="6.配置Git"></a>6.配置Git</h3><p>​        打开安装好的 <strong>git-bash.exe</strong>，命令行输入 <code>git config --global user.name &quot;xxx&quot;</code> 和 <code>git config --global user.email &quot;xxx@xx.com&quot;</code> ，配置git用户的名称和邮箱。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027165954462.png" alt="image-20201027165954462"></p>
+<p>​        然后在本地生成ssh密钥， <strong>git-bash</strong>里输入 <code>ssh-keygen -t rsa -C &quot;xx@xxx.com&quot;</code> ，即可得到密钥。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027170525522.png" alt="image-20201027170525522"></p>
+<p>​        在上图中显示文件保存在c盘local本地，进入到**.ssh<strong>文件夹，查看以</strong>ssh-rsa**开头的密钥。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027170845850.png" alt="image-20201027170845850"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027170931203.png" alt="image-20201027170931203"></p>
+<p>​        复制密钥，然后在github官网里打开个人设置</p>
+<p><img src="/2020/10/26/first-blog/image-20201027171157545.png" alt="image-20201027171157545"></p>
+<p>​        在设置的左边功能栏里选择 <strong>SSH and GPG Keys</strong>， 选择<strong>New SSH key</strong> , 不用写标题，直接将刚刚复制的密钥粘贴，。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027171254715.png" alt="image-20201027171254715"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027171434239.png" alt="image-20201027171434239"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027171641121.png" alt="image-20201027171641121"></p>
+<h3 id="7-Blog初始化"><a href="#7-Blog初始化" class="headerlink" title="7.Blog初始化"></a>7.Blog初始化</h3><p>​        配置好git后，在<strong>git-bash</strong>里输入 <code>cd /e/myblog</code> , 将当前路径转移到目标文件夹，再输入<code>hexo init</code></p>
+<p><img src="/2020/10/26/first-blog/image-20201027172021077.png" alt="image-20201027172021077"></p>
+<p>​        然后在 <strong>cmd</strong> 命令行里输入<code>hexo s</code> ，启动hexo</p>
+<p><img src="/2020/10/26/first-blog/image-20201027172159713.png" alt="image-20201027172159713"></p>
+<p>​        在浏览器上打开 <strong>localhost:4000</strong>，即可查看我们编写的blog，在此已完成blog平台的搭建</p>
+<p><img src="/2020/10/26/first-blog/image-20201027172403843.png" alt="image-20201027172403843"></p>
+<p>​        此时可以编写新的blog，在<strong>cmd</strong>命令行里输入 <strong>ctrl+c</strong> ，再输入<strong>Y</strong> ， 终止hexo运行， 这时候无法进入上述网址。输入<code>hexo n &quot;my first blog&quot;</code> ，在<strong>E://myblog/source/_posts</strong>文件夹里存在一个新建的md文件，这就是blog，以后每个新的blog都将保存在这里。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173141927.png" alt="image-20201027173141927"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027173229694.png" alt="image-20201027173229694"></p>
+<p>​        在这里可以选择相应的md编写软件来对md文件进行编辑，我选择Typora，当然也可以用记事本，但输入的语言格式要符合md规范。然后cmd命令行里输入<code>hexo g</code> ，将新写的blog发布。如果输入<code>hexo clean</code> ，可以清理数据库缓存。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173716448.png" alt="image-20201027173716448"></p>
+<p>​        这时候再输入<code>hexo s</code> ，在<strong>localhost:4000</strong>里即可看到新发布的blog</p>
+<p><img src="/2020/10/26/first-blog/image-20201027173844199.png" alt="image-20201027173844199"></p>
+<h3 id="8-配置公网网址"><a href="#8-配置公网网址" class="headerlink" title="8.配置公网网址"></a>8.配置公网网址</h3><p>​        此时的blog网址只能自己本地查看，外人无法进入浏览，此时借由github搭建公网网址。首先在github上新建仓库，仓库名为用户名组成的github网址，<strong>必须与用户名相同</strong>。这个仓库名就是之后让外人进入你blog的网址。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027174056649.png" alt="image-20201027174056649"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027200019309.png" alt="image-20201027200019309"></p>
+<p>​        回到<strong>cmd</strong>命令行，先退出hexo，然后输入<code>cnpm install --save hexo-deployer-git</code> </p>
+<p><img src="/2020/10/26/first-blog/image-20201027174754884.png" alt="image-20201027174754884"></p>
+<p>​        在E://myblog文件夹里找到<strong>_config.yml</strong>文件，对其配置。在最后地方的 <strong>type:””**处，往</strong>‘’<strong>里写入</strong>git<strong>，然后换行写入 **repo: ‘’</strong> ，(<strong>注意在 : 后加一个空格，再写’’</strong>)，**’’<strong>里写入刚刚新建的仓库链接，即</strong>仓库页面的HTTPS | SSH处展示的链接<strong>，复制写入即可。再换行写入</strong>branch: ‘master’** ，保存文件。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027174929832.png" alt="image-20201027174929832"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027175408829.png" alt="image-20201027175408829"></p>
+<p><img src="/2020/10/26/first-blog/image-20201027175642042.png" alt="image-20201027175642042"></p>
+<p>​       然后在<strong>git-bash</strong>命令行里输入<code>hexo d</code> ，将blog部署到github远端，过程中输入**github的用户名和密码(第一次部署要输入)**，即可完成远端部署。</p>
+<p><img src="/2020/10/26/first-blog/image-20201027180949005.png" alt="image-20201027180949005"></p>
+<hr>
+<h2 id="Blog发布的步骤"><a href="#Blog发布的步骤" class="headerlink" title="Blog发布的步骤"></a>Blog发布的步骤</h2><h3 id="1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件"><a href="#1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件" class="headerlink" title="1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件"></a>1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</h3><h3 id="2-对md文件进行编辑"><a href="#2-对md文件进行编辑" class="headerlink" title="2.对md文件进行编辑"></a>2.对md文件进行编辑</h3><h3 id="3-在cmd命令行里输入-hexo-g-，生成blog"><a href="#3-在cmd命令行里输入-hexo-g-，生成blog" class="headerlink" title="3.在cmd命令行里输入 hexo -g ，生成blog"></a>3.在cmd命令行里输入 hexo -g ，生成blog</h3><h3 id="4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000"><a href="#4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000" class="headerlink" title="(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))"></a>(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))</h3><h3 id="5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io"><a href="#5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io" class="headerlink" title="5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)"></a>5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</h3><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="本地图片无法显示"><a href="#本地图片无法显示" class="headerlink" title="本地图片无法显示"></a>本地图片无法显示</h3><p>解决方法：首先在<strong>git-bash</strong>里输入<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code>，安装好插件后打开<strong>_config.yml</strong>文件，修改<code>post_asset_folder: false</code>为<code>post_asset_folder: true</code>。最后在<strong>blog/public/2020/10/26/first-blog</strong>处放入<strong>blog/source/_posts/first-blog.assets</strong>文件夹里的全部图片。</p>
+<p>解释：first-blog.assets为你编写的blog文件所使用的图片文件夹，当你放入图片到md文档时，会自动将图片保存到first-blog.assets里。hexo-asset-image是一个插件，可以将本地图片以正确格式插入到网页源码里。修改_config.yml的目的是让hexo能够调用该插件。blog的发布网址本质上是一个网站，该网站保存在public文件夹里。而每个博客都有自己的一个网页，hexo根据博客发布的时间来放置每个博客的index.html。以本博客为例，发布时间为2020/10/26，则hexo会在public文件夹里创建2020文件夹，在2020文件夹里创建10文件夹，以此类推，最后在26文件夹里创建博客文件夹，即以博客名命名的文件夹，这个文件夹下就放置本博客的index.html。hexo-assets-image的作用就是将图片的引用地址设置在此文件夹下，所以需要将本博客的图片文件夹first-blog.assets里的全部图片放到index.html所在的文件夹里，即可实现图片相对路径的调用，也就解决此问题。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>邹宽
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2020/10/26/first-blog/" title="Windows10下使用Hexo和Github搭建个人博客">http://example.com/2020/10/26/first-blog/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <div>
+          
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+          
+      </div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/26/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E6%96%B9%E5%BC%8F%E6%89%93%E5%BC%80cmd"><span class="nav-number">2.1.</span> <span class="nav-text">1.以管理员方式打开cmd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%B9%B6%E9%AA%8C%E8%AF%81Node%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="nav-number">2.2.</span> <span class="nav-text">2.查看并验证Node安装结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85%E6%B7%98%E5%AE%9D%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8cnpm"><span class="nav-number">2.3.</span> <span class="nav-text">3.安装淘宝的包管理器cnpm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85hexo"><span class="nav-number">2.4.</span> <span class="nav-text">4.安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%9B%E5%BB%BABlog%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.5.</span> <span class="nav-text">5.创建Blog文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%85%8D%E7%BD%AEGit"><span class="nav-number">2.6.</span> <span class="nav-text">6.配置Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Blog%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.7.</span> <span class="nav-text">7.Blog初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%85%8D%E7%BD%AE%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80"><span class="nav-number">2.8.</span> <span class="nav-text">8.配置公网网址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog%E5%8F%91%E5%B8%83%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">Blog发布的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%86%8D%E8%BE%93%E5%85%A5-hexo-n-%E2%80%9Cnew-blog%E2%80%9D%EF%BC%8C%E5%88%9B%E5%BB%BAmd%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AF%B9md%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.</span> <span class="nav-text">2.对md文件进行编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-g-%EF%BC%8C%E7%94%9F%E6%88%90blog"><span class="nav-number">3.3.</span> <span class="nav-text">3.在cmd命令行里输入 hexo -g ，生成blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-s-%EF%BC%8C%E5%90%AF%E5%8A%A8blog%E5%B9%B3%E5%8F%B0-localhost-4000"><span class="nav-number">3.4.</span> <span class="nav-text">(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%9C%A8git-bash%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E8%BE%93%E5%85%A5-hexo-d-%EF%BC%8C%E5%B0%86blog%E9%83%A8%E7%BD%B2%E5%88%B0%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80-%E7%94%A8%E6%88%B7%E5%90%8D-github-io"><span class="nav-number">3.5.</span> <span class="nav-text">5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA"><span class="nav-number">4.1.</span> <span class="nav-text">本地图片无法显示</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邹宽"
+      src="/images/author.png">
+  <p class="site-author-name" itemprop="name">邹宽</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zoukuan1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zoukuan1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹宽</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">NaNm</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
