@@ -99,6 +99,7 @@
 <p>解释：first-blog.assets为你编写的blog文件所使用的图片文件夹，当你放入图片到md文档时，会自动将图片保存到first-blog.assets里。hexo-asset-image是一个插件，可以将本地图片以正确格式插入到网页源码里。修改_config.yml的目的是让hexo能够调用该插件。blog的发布网址本质上是一个网站，该网站保存在public文件夹里。而每个博客都有自己的一个网页，hexo根据博客发布的时间来放置每个博客的index.html。以本博客为例，发布时间为2020/10/26，则hexo会在public文件夹里创建2020文件夹，在2020文件夹里创建10文件夹，以此类推，最后在26文件夹里创建博客文件夹，即以博客名命名的文件夹，这个文件夹下就放置本博客的index.html。hexo-assets-image的作用就是将图片的引用地址设置在此文件夹下，所以需要将本博客的图片文件夹first-blog.assets里的全部图片放到index.html所在的文件夹里，即可实现图片相对路径的调用，也就解决此问题。</p>
 ]]></content>
       <categories>
+        <category>项目(平台)搭建</category>
         <category>Hexo</category>
       </categories>
       <tags>
