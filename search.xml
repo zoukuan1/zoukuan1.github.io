@@ -105,6 +105,44 @@
       <tags>
         <tag>hexo</tag>
         <tag>github</tag>
+        <tag>windows10</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows10下解决Github网站加载超时问题</title>
+    <url>/2020/11/11/login-problem-about-Github/</url>
+    <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>Github是我们学习代码的主要网站之一，但由于国内网的原因，导致该网站(<a href="https://github.com/">https://github.com/</a>) 有时无法加载进入，因此了解如何解决该问题很有必要。</p>
+<p>按以下步骤完成操作：</p>
+<h4 id="1-查询Github最新IP地址"><a href="#1-查询Github最新IP地址" class="headerlink" title="1.查询Github最新IP地址"></a>1.查询Github最新IP地址</h4><p>进入地址查询网站<a href="https://www.ipaddress.com/">https://www.ipaddress.com/</a> ，查询以下网站的IP地址</p>
+<p><strong>github.com</strong> (<a href="https://github.com.ipaddress.com/">https://github.com.ipaddress.com/</a>) </p>
+<p><strong>github.global.ssl.fastly.net</strong> (<a href="https://fastly.net.ipaddress.com/github.global.ssl.fastly.net">https://fastly.net.ipaddress.com/github.global.ssl.fastly.net</a>) </p>
+<p>如下图：</p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111200005781.png" alt="image-20201111200005781"></p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111200039892.png" alt="image-20201111200039892"></p>
+<h4 id="2-修改HOSTS文件"><a href="#2-修改HOSTS文件" class="headerlink" title="2.修改HOSTS文件"></a>2.修改HOSTS文件</h4><p>在系统盘(一般是C盘)里，找到 <strong>Windows</strong> 文件夹，进入并找到 <strong>System32</strong> 文件夹，进入并找到 <strong>drivers</strong> 文件夹，进入并找到 <strong>etc</strong> 文件夹，发现 <strong>HOSTS</strong> 文件。具体路径如下：</p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111200642209.png" alt="image-20201111200642209"></p>
+<p>然后鼠标左键点击文件夹左上角的<strong>文件</strong></p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111200749393.png" alt="image-20201111200749393"></p>
+<p>选择<strong>打开Windows PowerShell(R)**，再选择</strong>以管理员身份打开Windows PowerShell(A**)，以此以管理员身份进入系统脚本</p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111200827399.png" alt="image-20201111200827399"></p>
+<p>打开后输入<code>notepad HOSTS</code>，用记事本方式编辑<strong>HOSTS</strong>文件</p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111201108125.png" alt="image-20201111201108125"></p>
+<h4 id="3-HOSTS文件添加IP地址"><a href="#3-HOSTS文件添加IP地址" class="headerlink" title="3.HOSTS文件添加IP地址"></a>3.HOSTS文件添加IP地址</h4><p>HOSTS文件里以 <strong>“IP地址 域名”</strong> 的方式存储需要解析的IP地址，经过本机解析后，相应网站即可正常加载进入。将第1步根据域名得到的IP地址输入到HOSTS文件里，以第1步截图为例，分别为 <code>140.82.112.4 github.com</code>、<code>199.232.69.194 github.global.ssl.fastly.net</code>。需要注意的是 <strong>IP地址</strong> 与 <strong>域名</strong> 之间存在一个空格。</p>
+<p><img src="/2020/11/11/login-problem-about-Github/image-20201111202129297.png" alt="image-20201111202129297"></p>
+<p>输入完成后保存即可(快捷键：ctrl + s)。至此完成所有操作步骤，此时应该能进入Github网站。</p>
+<hr>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><ul>
+<li>需要注意的是Github的IP地址会经常变更，使用该解决方法后，每当Github网站无法进入时都需要根据最新的IP地址对原IP地址做出修改</li>
+<li>有时存在及时修改Github的IP地址后也无法进入的问题，这时候可以先将HOSTS文件里有关Github的IP地址都删除，然后保存HOSTS文件，再重新按格式输入最新的IP地址和域名，此时应该能进入Github(因为我尝试后成功了)。如若不能进入，请移步百度。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>问题解决</category>
+        <category>Github</category>
+      </categories>
+      <tags>
+        <tag>windows10</tag>
+        <tag>Github</tag>
       </tags>
   </entry>
 </search>
