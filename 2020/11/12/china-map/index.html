@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇博客介绍如何使用Python、Flask、echarts、MySQL实现中国地图的前端使用，以及如何将后端数据库数据传输到前端网页。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python + Flask + echarts + MySQL 实现中国地图的前端网页使用">
+<meta property="og:url" content="http://example.com/2020/11/12/china-map/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="这篇博客介绍如何使用Python、Flask、echarts、MySQL实现中国地图的前端使用，以及如何将后端数据库数据传输到前端网页。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112172619869.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112185809736.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112192847962.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112193132936.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112193752957.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112200129481.png">
+<meta property="og:image" content="http://example.com/2020/11/12/china-map/image-20201112201255444.png">
+<meta property="article:published_time" content="2020-11-12T08:55:54.000Z">
+<meta property="article:modified_time" content="2020-11-12T12:33:40.126Z">
+<meta property="article:author" content="邹宽">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="echarts">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/12/china-map/image-20201112172619869.png">
+
+<link rel="canonical" href="http://example.com/2020/11/12/china-map/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python + Flask + echarts + MySQL 实现中国地图的前端网页使用 | 个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">4</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/zoukuan1" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/12/china-map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.png">
+      <meta itemprop="name" content="邹宽">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python + Flask + echarts + MySQL 实现中国地图的前端网页使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-12 16:55:54 / 修改时间：20:33:40" itemprop="dateCreated datePublished" datetime="2020-11-12T16:55:54+08:00">2020-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <div class="post-description">这篇博客介绍如何使用Python、Flask、echarts、MySQL实现中国地图的前端使用，以及如何将后端数据库数据传输到前端网页。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇博客介绍如何使用Python、Flask、echarts、MySQL实现中国地图的前端使用，以及如何将后端数据库数据传输到前端网页。</p>
+<h2 id="项目环境"><a href="#项目环境" class="headerlink" title="项目环境"></a>项目环境</h2><ul>
+<li>Pycharm2018.2</li>
+<li>Python3.7</li>
+<li>MySQL5.7</li>
+<li>Flask 1.1.2</li>
+</ul>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
+<li>创建数据库以及表</li>
+<li>获取数据，并保存到数据库</li>
+<li>搭建前端页面</li>
+<li>反馈数据库数据</li>
+<li>显示各省份学生信息</li>
+</ol>
+<hr>
+<p>本次以在中国地图上显示各省份的学生信息为例</p>
+<h3 id="1-创建数据库以及表"><a href="#1-创建数据库以及表" class="headerlink" title="1.创建数据库以及表"></a>1.创建数据库以及表</h3><p>在<strong>MySQL</strong>里依次输入以下代码，得到数据库和相应的表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create DATABASE studentInfo CHARACTERSET gbk COLLATE gbk_chinese_ci</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create TABLE &#39;student&#39;</span><br><span class="line">(</span><br><span class="line">	&#39;name&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    &#39;sex&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    &#39;age&#39; INT NOT NULL,</span><br><span class="line">    &#39;height&#39; FLOAT NOT NULL,</span><br><span class="line">    &#39;weight&#39; DOUBLE NOT NULL,</span><br><span class="line">    &#39;province&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    &#39;parties&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    &#39;consumption&#39; INT NOT NULL,</span><br><span class="line">    &#39;havefriend&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    &#39;playgame&#39; VARCHAR(45) NOT NULL,</span><br><span class="line">    PRIMARY KEY(&#39;name&#39;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-获取数据，并保存到数据库"><a href="#2-获取数据，并保存到数据库" class="headerlink" title="2.获取数据，并保存到数据库"></a>2.获取数据，并保存到数据库</h3><p>我们先要从一个叫<strong>Info.txt</strong>的文件中提取数据，里面有人名及对应的性别，如下图：</p>
+<p><img src="/2020/11/12/china-map/image-20201112172619869.png" alt="image-20201112172619869"></p>
+<p>但是里面的性别数据存在无效项，在提取时需要筛选，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取姓名和性别</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;Info.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> f.readlines():</span><br><span class="line">        temp = data.strip(<span class="string">&#x27;\n&#x27;</span>)         <span class="comment"># 去掉换行符</span></span><br><span class="line">        temp = temp.split(<span class="string">&#x27;,&#x27;</span>)          <span class="comment"># 以逗号做区分</span></span><br><span class="line">        <span class="keyword">if</span> temp[<span class="number">1</span>] != <span class="string">&quot;未知&quot;</span>:            <span class="comment"># 筛选性别</span></span><br><span class="line">            count = count + <span class="number">1</span></span><br><span class="line">            all_names.append(temp[<span class="number">0</span>])   <span class="comment"># 保留确定性别的名字</span></span><br><span class="line">            all_sex.append(temp[<span class="number">1</span>])     <span class="comment"># 保留名字对应的性别</span></span><br></pre></td></tr></table></figure>
+
+<p>除了姓名和性别外，其他的学生信息数据都是在一定范围内随机生成的。但是<strong>Info.txt</strong>有百万条数据，即使筛选后数量仍较大，所以考虑只取500条数据存储到数据库。而为了确保随机性，选择随机生成下标来随机获取列表数据。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机抽样500个下标值，提取相应下标的姓名和性别</span></span><br><span class="line">indexs = random.sample(<span class="built_in">range</span>(<span class="number">0</span>, count), <span class="number">500</span>)</span><br><span class="line">names = [all_names[index] <span class="keyword">for</span> index <span class="keyword">in</span> indexs]</span><br><span class="line">sex = [all_sex[index] <span class="keyword">for</span> index <span class="keyword">in</span> indexs]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从0 - 33 中随机生成500份下标，提取相应的省份名</span></span><br><span class="line">province_indexs = np.random.randint(<span class="number">0</span>, <span class="number">34</span>, size=<span class="number">500</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从0 1中随机生成500份下标</span></span><br><span class="line">two_flag = np.random.randint(<span class="number">0</span>, <span class="number">2</span>, size=<span class="number">500</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从0 - 3 中随机生成500份下标</span></span><br><span class="line">four_flag = np.random.randint(<span class="number">0</span>, <span class="number">4</span>, size=<span class="number">500</span>)</span><br></pre></td></tr></table></figure>
+
+<p>将所有学生信息组合，逐条插入到数据库中。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将学生的相关信息组合，使用上面获取的下标向对应的列表获取数据，并保存到数据库里</span></span><br><span class="line">studentInfos = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">500</span>):</span><br><span class="line">    studentInfo = [names[i], sex[i], np.random.randint(<span class="number">18</span>, <span class="number">23</span>), np.random.uniform(<span class="number">1.50</span>, <span class="number">2.00</span>),</span><br><span class="line">                   np.random.uniform(<span class="number">70</span>, <span class="number">200</span>), province[province_indexs[i]], parties[four_flag[i]],</span><br><span class="line">                   np.random.randint(<span class="number">100</span>, <span class="number">2000</span>), havefriend[two_flag[i]], playgame[two_flag[i]]]</span><br><span class="line">    studentInfos.append(studentInfo)</span><br><span class="line">    utils.insert_data(studentInfo)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将数据保存到数据库</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_data</span>(<span class="params">studentInfo</span>):</span></span><br><span class="line">    name = studentInfo[<span class="number">0</span>]</span><br><span class="line">    sex = studentInfo[<span class="number">1</span>]</span><br><span class="line">    age = studentInfo[<span class="number">2</span>]</span><br><span class="line">    height = studentInfo[<span class="number">3</span>]</span><br><span class="line">    weight = studentInfo[<span class="number">4</span>]</span><br><span class="line">    province = studentInfo[<span class="number">5</span>]</span><br><span class="line">    parties = studentInfo[<span class="number">6</span>]</span><br><span class="line">    consumption = studentInfo[<span class="number">7</span>]</span><br><span class="line">    havefriend = studentInfo[<span class="number">8</span>]</span><br><span class="line">    playgame = studentInfo[<span class="number">9</span>]</span><br><span class="line">    sql = <span class="string">&quot;insert into studentinfo (name, sex, age, height, weight, province, parties, consumption, havefriend, playgame) &quot;</span> \</span><br><span class="line">          <span class="string">&quot;value(&#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#123;&#125;, &#123;&#125;, &#123;&#125;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#123;&#125;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;)&quot;</span>.<span class="built_in">format</span>(name, sex, age, height, weight, province,</span><br><span class="line">           parties, consumption, havefriend, playgame)</span><br><span class="line">    conn, cursor = get_conn()</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line">    close_conn(conn, cursor)</span><br></pre></td></tr></table></figure>
+
+<p>为了防止数据库的数据丢失，将所有的学生信息都存储在一个**.csv**文件中，利于数据库维护和数据载入。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将所有学生信息写出为.csv文件</span></span><br><span class="line">file_csv = codecs.<span class="built_in">open</span>(<span class="string">&quot;studentInfo.csv&quot;</span>, <span class="string">&#x27;w+&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">writer = csv.writer(file_csv, delimiter=<span class="string">&#x27; &#x27;</span>, quotechar=<span class="string">&#x27; &#x27;</span>, quoting=csv.QUOTE_MINIMAL)</span><br><span class="line">writer.writerow([<span class="string">&quot;姓名&quot;</span>, <span class="string">&quot;性别&quot;</span>, <span class="string">&quot;年龄&quot;</span>, <span class="string">&quot;身高&quot;</span>, <span class="string">&quot;体重&quot;</span>, <span class="string">&quot;省份&quot;</span>, <span class="string">&quot;党派&quot;</span>, <span class="string">&quot;消费&quot;</span>, <span class="string">&quot;有无男/女朋友&quot;</span>, <span class="string">&quot;是否打游戏&quot;</span>])</span><br><span class="line"><span class="keyword">for</span> studentInfo <span class="keyword">in</span> studentInfos:</span><br><span class="line">    writer.writerow(studentInfo)</span><br></pre></td></tr></table></figure>
+
+<p>至此数据获取结束，并且可以保存到MySQL数据库中。结果如下：</p>
+<p><img src="/2020/11/12/china-map/image-20201112185809736.png" alt="image-20201112185809736"></p>
+<h3 id="3-搭建前端页面"><a href="#3-搭建前端页面" class="headerlink" title="3.搭建前端页面"></a>3.搭建前端页面</h3><p>因为我们采用echarts插件来加载中国地图，所以需要提前准备好如下.js文件：<strong>echarts.js</strong>、<strong>jquery-1.11.1.min.js</strong>、<strong>china.js</strong>。可以选择去官网下载，我这里也提供百度云链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1gInLSwC-3EzKBmXYQDBXgg">https://pan.baidu.com/s/1gInLSwC-3EzKBmXYQDBXgg</a> 提取码：zkzk 解压密码：123456</p>
+<p>接下来我们编写.html文件。首先导入上述.js文件，因为只显示一张中国地图，所以只需要定义一个div做分区。为了美观，还需要载入.css文件对页面排版。考虑到设置地图属性的代码过长，选择将这部分写在一个.js文件，而.html只需载入即可。具体代码分析就不进行，各位可自行理解。代码如下：</p>
+<p><strong>china_map.html:</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>, <span class="attr">height</span>=<span class="string">100%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>学生信息<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../static/js/jquery-1.11.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../static/js/echarts.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../static/js/china.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;../static/css/china_map.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;map&quot;</span>&gt;</span>地图<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../static/js/ec_map.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../static/js/controller.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-反馈数据库数据"><a href="#4-反馈数据库数据" class="headerlink" title="4.反馈数据库数据"></a>4.反馈数据库数据</h3><p>写好前端页面后，现在需要将数据库的数据依照省份传到地图里，这里我们采用<strong>Flask + ajax</strong>的方式实现。</p>
+<p><strong>Flask</strong>是一个微型的Python开发的Web框架，使用的方式如下：</p>
+<p><img src="/2020/11/12/china-map/image-20201112192847962.png" alt="image-20201112192847962"></p>
+<p>创建成功后，结构目录如下：</p>
+<p><img src="/2020/11/12/china-map/image-20201112193132936.png" alt="image-20201112193132936"></p>
+<p><strong>app.py</strong>是我们运行的主程序，在这里我们可以定义路由地址，并在该路由地址下实现相关函数的调用。例如如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(&#x27;/&#x27;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>意思是当我们运行app.py时，会弹出前端页面所在的端口地址，如下图：</p>
+<p><img src="/2020/11/12/china-map/image-20201112193752957.png" alt="image-20201112193752957"></p>
+<p>而上面代码里的<code>app.route(&#39;/&#39;)</code>对应于<strong>127.0.0.1:5000/**的</strong>’/‘**，表示只要进入该网址，就会执行hello_world函数，返回一个Hello world到页面里。</p>
+<p>理解Flask的运行逻辑后，我们需要考虑怎么提取数据库数据。本次我们需要在页面上实现这样一个效果：当鼠标放在某一省份时，会自动将来自该省份的学生总人数、男生人数、所有男生名字、女生人数、所有女生名字都显示出来。所以按照要求，我们定义相应的提取函数。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取总人数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_all_people</span>():</span></span><br><span class="line">    sql = <span class="string">&quot;select province,count(name) from studentinfo &quot;</span> \</span><br><span class="line">          <span class="string">&quot;group by province&quot;</span></span><br><span class="line">    res = query(sql)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取男生数量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_nums_man</span>():</span></span><br><span class="line">    sql = <span class="string">&quot;select province,count(name) from studentinfo &quot;</span> \</span><br><span class="line">          <span class="string">&quot;where sex=&#x27;男&#x27;&quot;</span> \</span><br><span class="line">          <span class="string">&quot;group by province&quot;</span></span><br><span class="line">    res = query(sql)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取女生数量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_nums_woman</span>():</span></span><br><span class="line">    sql = <span class="string">&quot;select province,count(name) from studentinfo &quot;</span> \</span><br><span class="line">          <span class="string">&quot;where sex=&#x27;女&#x27;&quot;</span> \</span><br><span class="line">          <span class="string">&quot;group by province&quot;</span></span><br><span class="line">    res = query(sql)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取男生名字</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_names_man</span>():</span></span><br><span class="line">    provinces = [<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;天津&quot;</span>, <span class="string">&quot;黑龙江&quot;</span>, <span class="string">&quot;吉林&quot;</span>, <span class="string">&quot;辽宁&quot;</span>, <span class="string">&quot;内蒙古&quot;</span>, <span class="string">&quot;山西&quot;</span>, <span class="string">&quot;山东&quot;</span>, <span class="string">&quot;河北&quot;</span>, <span class="string">&quot;河南&quot;</span>, <span class="string">&quot;湖北&quot;</span>, <span class="string">&quot;湖南&quot;</span>, <span class="string">&quot;江西&quot;</span>,</span><br><span class="line">                 <span class="string">&quot;江苏&quot;</span>, <span class="string">&quot;浙江&quot;</span>, <span class="string">&quot;上海&quot;</span>, <span class="string">&quot;福建&quot;</span>, <span class="string">&quot;广东&quot;</span>, <span class="string">&quot;广西&quot;</span>, <span class="string">&quot;贵州&quot;</span>, <span class="string">&quot;云南&quot;</span>, <span class="string">&quot;四川&quot;</span>, <span class="string">&quot;重庆&quot;</span>, <span class="string">&quot;陕西&quot;</span>, <span class="string">&quot;青海&quot;</span>, <span class="string">&quot;新疆&quot;</span>,</span><br><span class="line">                 <span class="string">&quot;西藏&quot;</span>, <span class="string">&quot;甘肃&quot;</span>, <span class="string">&quot;安徽&quot;</span>, <span class="string">&quot;宁夏&quot;</span>, <span class="string">&quot;海南&quot;</span>, <span class="string">&quot;香港&quot;</span>, <span class="string">&quot;澳门&quot;</span>, <span class="string">&quot;台湾&quot;</span>]</span><br><span class="line">    man_names = []</span><br><span class="line">    man_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(provinces)):</span><br><span class="line">        sql = <span class="string">&quot;select name from studentinfo where province = &#x27;&#123;&#125;&#x27; and sex = &#x27;&#123;&#125;&#x27;&quot;</span>.<span class="built_in">format</span>(provinces[i], <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">        res = query(sql)</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> res:</span><br><span class="line">            man_name += <span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(item[<span class="number">0</span>])</span><br><span class="line">        man_names.append((provinces[i], man_name))</span><br><span class="line">        man_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> man_names</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取女生名字</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_names_woman</span>():</span></span><br><span class="line">    provinces = [<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;天津&quot;</span>, <span class="string">&quot;黑龙江&quot;</span>, <span class="string">&quot;吉林&quot;</span>, <span class="string">&quot;辽宁&quot;</span>, <span class="string">&quot;内蒙古&quot;</span>, <span class="string">&quot;山西&quot;</span>, <span class="string">&quot;山东&quot;</span>, <span class="string">&quot;河北&quot;</span>, <span class="string">&quot;河南&quot;</span>, <span class="string">&quot;湖北&quot;</span>, <span class="string">&quot;湖南&quot;</span>, <span class="string">&quot;江西&quot;</span>,</span><br><span class="line">                 <span class="string">&quot;江苏&quot;</span>, <span class="string">&quot;浙江&quot;</span>, <span class="string">&quot;上海&quot;</span>, <span class="string">&quot;福建&quot;</span>, <span class="string">&quot;广东&quot;</span>, <span class="string">&quot;广西&quot;</span>, <span class="string">&quot;贵州&quot;</span>, <span class="string">&quot;云南&quot;</span>, <span class="string">&quot;四川&quot;</span>, <span class="string">&quot;重庆&quot;</span>, <span class="string">&quot;陕西&quot;</span>, <span class="string">&quot;青海&quot;</span>, <span class="string">&quot;新疆&quot;</span>,</span><br><span class="line">                 <span class="string">&quot;西藏&quot;</span>, <span class="string">&quot;甘肃&quot;</span>, <span class="string">&quot;安徽&quot;</span>, <span class="string">&quot;宁夏&quot;</span>, <span class="string">&quot;海南&quot;</span>, <span class="string">&quot;香港&quot;</span>, <span class="string">&quot;澳门&quot;</span>, <span class="string">&quot;台湾&quot;</span>]</span><br><span class="line">    woman_names = []</span><br><span class="line">    woman_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(provinces)):</span><br><span class="line">        sql = <span class="string">&quot;select name from studentinfo where province = &#x27;&#123;&#125;&#x27; and sex = &#x27;&#123;&#125;&#x27;&quot;</span>.<span class="built_in">format</span>(provinces[i], <span class="string">&#x27;女&#x27;</span>)</span><br><span class="line">        res = query(sql)</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> res:</span><br><span class="line">            woman_name += <span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(item[<span class="number">0</span>])</span><br><span class="line">        woman_names.append((provinces[i], woman_name))</span><br><span class="line">        woman_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> woman_names</span><br></pre></td></tr></table></figure>
+
+<p>提取后就要传给地图，这里我们采用<strong>ajax</strong>来载入数据。它的使用方法是先设置一个要跳转到的路由地址，我们可以在app.py中对这一路由地址定义一个函数，将提取的数据回传给ajax，ajax收取数据后再设置给地图的option.series.data，即可将数据载入到地图。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_map_data</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="comment">// ajax执行的路由地址</span></span><br><span class="line">        url: <span class="string">&#x27;/map&#x27;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        成功访问路由地址时，运行如下函数，参数为res</span></span><br><span class="line"><span class="comment">        将提取的数据分类别赋值给option.series.data，提供页面显示数据</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">            map_option.series[<span class="number">0</span>].data=res.total_nums  <span class="comment">//总人数</span></span><br><span class="line">            map_option.series[<span class="number">1</span>].data=res.man_nums    <span class="comment">//男生人数</span></span><br><span class="line">            map_option.series[<span class="number">2</span>].data=res.man_names   <span class="comment">//所有男生名字</span></span><br><span class="line">            map_option.series[<span class="number">3</span>].data=res.woman_nums  <span class="comment">//女生人数</span></span><br><span class="line">            map_option.series[<span class="number">4</span>].data=res.woman_names <span class="comment">//所有女生名字</span></span><br><span class="line">            map.setOption(map_option)           <span class="comment">//echarts对象设置修改后的option配置，完成数据供应</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//不成功访问路由地址，不进行操作</span></span><br><span class="line">        error: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type, errorThrown</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当链接到路由地址map，返回地图数据</span></span><br><span class="line"><span class="meta">@app.route(&#x27;/map&#x27;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_map_data</span>():</span></span><br><span class="line">    <span class="comment"># 各省学生总人数</span></span><br><span class="line">    total_nums = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> utils.get_all_people():</span><br><span class="line">        total_nums.append(&#123;<span class="string">&#x27;name&#x27;</span>: item[<span class="number">0</span>], <span class="string">&#x27;value&#x27;</span>: <span class="built_in">int</span>(item[<span class="number">1</span>])&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 各省男学生人数</span></span><br><span class="line">    man_nums = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> utils.get_nums_man():</span><br><span class="line">        man_nums.append(&#123;<span class="string">&#x27;name&#x27;</span>: item[<span class="number">0</span>], <span class="string">&#x27;value&#x27;</span>: <span class="built_in">int</span>(item[<span class="number">1</span>])&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 各省女学生人数</span></span><br><span class="line">    woman_nums = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> utils.get_nums_woman():</span><br><span class="line">        woman_nums.append(&#123;<span class="string">&#x27;name&#x27;</span>: item[<span class="number">0</span>], <span class="string">&#x27;value&#x27;</span>: <span class="built_in">int</span>(item[<span class="number">1</span>])&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 各省男学生名字</span></span><br><span class="line">    man_names = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> utils.get_names_man():</span><br><span class="line">        man_names.append(&#123;<span class="string">&#x27;name&#x27;</span>: item[<span class="number">0</span>], <span class="string">&#x27;value&#x27;</span>: <span class="built_in">str</span>(item[<span class="number">1</span>])&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 各省女学生名字</span></span><br><span class="line">    woman_names = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> utils.get_names_woman():</span><br><span class="line">        woman_names.append(&#123;<span class="string">&#x27;name&#x27;</span>: item[<span class="number">0</span>], <span class="string">&#x27;value&#x27;</span>: <span class="built_in">str</span>(item[<span class="number">1</span>])&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将上述数据以字典形式存储</span></span><br><span class="line">    res = &#123;&#125;</span><br><span class="line">    res[<span class="string">&#x27;total_nums&#x27;</span>] = total_nums</span><br><span class="line">    res[<span class="string">&#x27;man_nums&#x27;</span>] = man_nums</span><br><span class="line">    res[<span class="string">&#x27;woman_nums&#x27;</span>] = woman_nums</span><br><span class="line">    res[<span class="string">&#x27;man_names&#x27;</span>] = man_names</span><br><span class="line">    res[<span class="string">&#x27;woman_names&#x27;</span>] = woman_names</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 以json形式返回结果给controller.js</span></span><br><span class="line">    <span class="keyword">return</span> jsonify(res)</span><br></pre></td></tr></table></figure>
+
+<p>至此我们完成了将数据库数据传给前端页面。</p>
+<h3 id="5-显示各省份学生信息"><a href="#5-显示各省份学生信息" class="headerlink" title="5.显示各省份学生信息"></a>5.显示各省份学生信息</h3><p>在第4步中我们提及了学生信息的显示要求，即将来自该省份的学生总人数、男生人数、所有男生名字、女生人数、所有女生名字都显示出来。所以我们需要在地图的option配置里设置5个series，分别存储这5部分的数据。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">series: [</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">&#x27;学生人数&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line">        mapType: <span class="string">&#x27;china&#x27;</span>,</span><br><span class="line">        roam: <span class="literal">false</span>, <span class="comment">//拖动和缩放</span></span><br><span class="line">        <span class="comment">// 左侧小导航图标</span></span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                borderWidth: <span class="number">.5</span>, <span class="comment">//区域边框宽度</span></span><br><span class="line">                borderColor: <span class="string">&#x27;#009fe8&#x27;</span>, <span class="comment">//区域边框颜色</span></span><br><span class="line">                areaColor: <span class="string">&quot;#ffefd5&quot;</span>, <span class="comment">//区域颜色</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123; <span class="comment">//鼠标滑过地图高亮的相关设置</span></span><br><span class="line">                borderWidth: <span class="number">.5</span>,</span><br><span class="line">                borderColor: <span class="string">&#x27;#4b0082&#x27;</span>,</span><br><span class="line">                areaColor: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            show: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        label: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>, <span class="comment">//省份名称</span></span><br><span class="line">                fontSize: <span class="number">10</span>,</span><br><span class="line">                color: <span class="string">&#x27;#111111&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                fontSize: <span class="number">8</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: []  <span class="comment">//数据</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">&#x27;男生人数&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line">        mapType: <span class="string">&#x27;china&#x27;</span>,</span><br><span class="line">        roam: <span class="literal">false</span>, <span class="comment">//拖动和缩放</span></span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                borderWidth: <span class="number">.5</span>, <span class="comment">//区域边框宽度</span></span><br><span class="line">                borderColor: <span class="string">&#x27;#009fe8&#x27;</span>, <span class="comment">//区域边框颜色</span></span><br><span class="line">                areaColor: <span class="string">&quot;#ffefd5&quot;</span>, <span class="comment">//区域颜色</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123; <span class="comment">//鼠标滑过地图高亮的相关设置</span></span><br><span class="line">                borderWidth: <span class="number">.5</span>,</span><br><span class="line">                borderColor: <span class="string">&#x27;#4b0082&#x27;</span>,</span><br><span class="line">                areaColor: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            show: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        label: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>, <span class="comment">//省份名称</span></span><br><span class="line">                fontSize: <span class="number">10</span>,</span><br><span class="line">                color: <span class="string">&#x27;#111111&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                fontSize: <span class="number">8</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: [],  <span class="comment">//数据</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">&#x27;男生&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line">        mapType: <span class="string">&#x27;china&#x27;</span>,</span><br><span class="line">        roam: <span class="literal">false</span>, <span class="comment">//拖动和缩放</span></span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                borderWidth: <span class="number">.5</span>, <span class="comment">//区域边框宽度</span></span><br><span class="line">                borderColor: <span class="string">&#x27;#009fe8&#x27;</span>, <span class="comment">//区域边框颜色</span></span><br><span class="line">                areaColor: <span class="string">&quot;#ffefd5&quot;</span>, <span class="comment">//区域颜色</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123; <span class="comment">//鼠标滑过地图高亮的相关设置</span></span><br><span class="line">                borderWidth: <span class="number">.5</span>,</span><br><span class="line">                borderColor: <span class="string">&#x27;#4b0082&#x27;</span>,</span><br><span class="line">                areaColor: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            show: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        label: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>, <span class="comment">//省份名称</span></span><br><span class="line">                fontSize: <span class="number">10</span>,</span><br><span class="line">                color: <span class="string">&#x27;#111111&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                fontSize: <span class="number">8</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: [],  <span class="comment">//数据</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">&#x27;女生人数&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line">        mapType: <span class="string">&#x27;china&#x27;</span>,</span><br><span class="line">        roam: <span class="literal">false</span>, <span class="comment">//拖动和缩放</span></span><br><span class="line">        <span class="comment">// 左侧小导航图标</span></span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                borderWidth: <span class="number">.5</span>, <span class="comment">//区域边框宽度</span></span><br><span class="line">                borderColor: <span class="string">&#x27;#009fe8&#x27;</span>, <span class="comment">//区域边框颜色</span></span><br><span class="line">                areaColor: <span class="string">&quot;#ffefd5&quot;</span>, <span class="comment">//区域颜色</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123; <span class="comment">//鼠标滑过地图高亮的相关设置</span></span><br><span class="line">                borderWidth: <span class="number">.5</span>,</span><br><span class="line">                borderColor: <span class="string">&#x27;#4b0082&#x27;</span>,</span><br><span class="line">                areaColor: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            show: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        label: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>, <span class="comment">//省份名称</span></span><br><span class="line">                fontSize: <span class="number">10</span>,</span><br><span class="line">                color: <span class="string">&#x27;#111111&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                fontSize: <span class="number">8</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: []  <span class="comment">//数据</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">&#x27;女生&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line">        mapType: <span class="string">&#x27;china&#x27;</span>,</span><br><span class="line">        roam: <span class="literal">false</span>, <span class="comment">//拖动和缩放</span></span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                borderWidth: <span class="number">.5</span>, <span class="comment">//区域边框宽度</span></span><br><span class="line">                borderColor: <span class="string">&#x27;#009fe8&#x27;</span>, <span class="comment">//区域边框颜色</span></span><br><span class="line">                areaColor: <span class="string">&quot;#ffefd5&quot;</span>, <span class="comment">//区域颜色</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123; <span class="comment">//鼠标滑过地图高亮的相关设置</span></span><br><span class="line">                borderWidth: <span class="number">.5</span>,</span><br><span class="line">                borderColor: <span class="string">&#x27;#4b0082&#x27;</span>,</span><br><span class="line">                areaColor: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            show: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        label: &#123;</span><br><span class="line">            normal: &#123;</span><br><span class="line">                show: <span class="literal">true</span>, <span class="comment">//省份名称</span></span><br><span class="line">                fontSize: <span class="number">10</span>,</span><br><span class="line">                color: <span class="string">&#x27;#111111&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            emphasis: &#123;</span><br><span class="line">                show: <span class="literal">true</span>,</span><br><span class="line">                fontSize: <span class="number">8</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: [],  <span class="comment">//数据</span></span><br><span class="line">    &#125;]</span><br></pre></td></tr></table></figure>
+
+<p>光有数据还不行，此时将鼠标放在省份是没有任何反应的，所以我们需要对消息框进行自定义设置。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 鼠标放在指定省份上显示的信息</span></span><br><span class="line">tooltip: &#123;</span><br><span class="line">    trigger: <span class="string">&#x27;item&#x27;</span>,</span><br><span class="line">    <span class="comment">// 按照series的顺序输出相关信息</span></span><br><span class="line">    formatter: <span class="function"><span class="keyword">function</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 第一行显示每个省份的名字</span></span><br><span class="line">        <span class="keyword">var</span> res = params.name + <span class="string">&#x27;&lt;br/&gt;&#x27;</span>;</span><br><span class="line">        <span class="comment">// 获取option里的series</span></span><br><span class="line">        <span class="keyword">var</span> myseries = map_option.series;</span><br><span class="line">        <span class="comment">// 遍历每个series，将每一个series数据逐行输出</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; myseries.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; myseries[i].data.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (myseries[i].data[j].name == params.name) &#123;</span><br><span class="line">                    res += myseries[i].name + <span class="string">&#x27; : &#x27;</span> + myseries[i].data[j].value + <span class="string">&#x27;&lt;/br&gt;&#x27;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 使显示的信息不超出边界</span></span><br><span class="line">    confine: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候我们再将鼠标放上，就会出现结果：</p>
+<p><img src="/2020/11/12/china-map/image-20201112200129481.png" alt="image-20201112200129481"></p>
+<p>至此我们完成了学生信息的显示，完成了所有的实现步骤。</p>
+<hr>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><ul>
+<li><p>如果你使用的是Google浏览器，可能会出现程序或界面修改了，但显示的还是上一次的结果。这里可能是因为Google浏览器会对网页进行静态缓存，因此在访问同一静态网址时，会自动载入上一次的结果。解决的方法是按<strong>F12</strong>进入开发者模式，找到<strong>Network</strong>后，按<strong>F5</strong>刷新一遍，即可载入修改后的页面。</p>
+<p><img src="/2020/11/12/china-map/image-20201112201255444.png" alt="image-20201112201255444"></p>
+</li>
+<li><p>完整代码见Github：<a target="_blank" rel="noopener" href="https://github.com/zoukuan1/china-map">https://github.com/zoukuan1/china-map</a></p>
+</li>
+<li><p>如果js文件的链接失效，请前往上述Github地址寻找下载</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <!--添加版权信息-->
+    <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>Python + Flask + echarts + MySQL 实现中国地图的前端网页使用</a></p>
+  <p><span>文章作者:</span>邹宽</a></p>
+  <p><span>发布时间:</span>2020年11月12日 - 16:55:54</p>
+  <p><span>最后更新:</span>2020年11月12日 - 20:33:40</p>
+  <p><span>许可协议:</span><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p> 
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+        
+    </div>
+
+      <div>
+          
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+          
+      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i>Python</a>
+              <a href="/tags/Flask/" rel="tag"><i class="fa fa-tag"></i>Flask</a>
+              <a href="/tags/echarts/" rel="tag"><i class="fa fa-tag"></i>echarts</a>
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i>MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/12/upload-local-folder-to-Github/" rel="prev" title="使用Git将本地文件夹上传到Github">
+      <i class="fa fa-chevron-left"></i> 使用Git将本地文件夹上传到Github
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">项目环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%A5%E5%8F%8A%E8%A1%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建数据库以及表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.2.</span> <span class="nav-text">2.获取数据，并保存到数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">3.搭建前端页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%8D%E9%A6%88%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE"><span class="nav-number">2.4.</span> <span class="nav-text">4.反馈数据库数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%98%BE%E7%A4%BA%E5%90%84%E7%9C%81%E4%BB%BD%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF"><span class="nav-number">2.5.</span> <span class="nav-text">5.显示各省份学生信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD"><span class="nav-number">3.</span> <span class="nav-text">后续</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邹宽"
+      src="/images/author.png">
+  <p class="site-author-name" itemprop="name">邹宽</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zoukuan1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zoukuan1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/zoukuan1" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;zoukuan1" rel="noopener" target="_blank"><i class="fab fa-cuttlefish fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹宽</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">17k</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
