@@ -79,7 +79,7 @@
 <meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027175642042.png">
 <meta property="og:image" content="http://example.com/2020/10/26/first-blog/image-20201027180949005.png">
 <meta property="article:published_time" content="2020-10-26T10:50:14.000Z">
-<meta property="article:modified_time" content="2020-11-12T08:23:13.272Z">
+<meta property="article:modified_time" content="2021-01-05T08:34:19.527Z">
 <meta property="article:author" content="邹宽">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="Github">
@@ -175,7 +175,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -185,7 +185,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">5</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -275,7 +275,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-12 16:23:13" itemprop="dateModified" datetime="2020-11-12T16:23:13+08:00">2020-11-12</time>
+                <time title="修改时间：2021-01-05 16:34:19" itemprop="dateModified" datetime="2021-01-05T16:34:19+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -367,7 +367,7 @@
 <p><img src="/2020/10/26/first-blog/image-20201027165954462.png" alt="image-20201027165954462"></p>
 <p>​        然后在本地生成ssh密钥， <strong>git-bash</strong>里输入 <code>ssh-keygen -t rsa -C &quot;xx@xxx.com&quot;</code> ，即可得到密钥。</p>
 <p><img src="/2020/10/26/first-blog/image-20201027170525522.png" alt="image-20201027170525522"></p>
-<p>​        在上图中显示文件保存在c盘local本地，进入到**.ssh<strong>文件夹，查看以</strong>ssh-rsa**开头的密钥。</p>
+<p>​        在上图中显示文件保存在c盘local本地，进入到<strong>.ssh</strong>文件夹，查看以<strong>ssh-rsa</strong>开头的密钥。</p>
 <p><img src="/2020/10/26/first-blog/image-20201027170845850.png" alt="image-20201027170845850"></p>
 <p><img src="/2020/10/26/first-blog/image-20201027170931203.png" alt="image-20201027170931203"></p>
 <p>​        复制密钥，然后在github官网里打开个人设置</p>
@@ -394,14 +394,14 @@
 <p><img src="/2020/10/26/first-blog/image-20201027200019309.png" alt="image-20201027200019309"></p>
 <p>​        回到<strong>cmd</strong>命令行，先退出hexo，然后输入<code>cnpm install --save hexo-deployer-git</code> </p>
 <p><img src="/2020/10/26/first-blog/image-20201027174754884.png" alt="image-20201027174754884"></p>
-<p>​        在E://myblog文件夹里找到<strong>_config.yml</strong>文件，对其配置。在最后地方的 <strong>type:””**处，往</strong>‘’<strong>里写入</strong>git<strong>，然后换行写入 **repo: ‘’</strong> ，(<strong>注意在 : 后加一个空格，再写’’</strong>)，**’’<strong>里写入刚刚新建的仓库链接，即</strong>仓库页面的HTTPS | SSH处展示的链接<strong>，复制写入即可。再换行写入</strong>branch: ‘master’** ，保存文件。</p>
+<p>​        在E://myblog文件夹里找到<strong>_config.yml</strong>文件，对其配置。在最后地方的 <strong>type:””</strong>处，往<strong>‘’</strong>里写入<strong>git</strong>，然后换行写入 <strong>repo: ‘’</strong> ，(<strong>注意在 : 后加一个空格，再写’’</strong>)，<strong>‘’</strong>里写入刚刚新建的仓库链接，即<strong>仓库页面的HTTPS | SSH处展示的链接</strong>，复制写入即可。再换行写入<strong>branch: ‘master’</strong> ，保存文件。</p>
 <p><img src="/2020/10/26/first-blog/image-20201027174929832.png" alt="image-20201027174929832"></p>
 <p><img src="/2020/10/26/first-blog/image-20201027175408829.png" alt="image-20201027175408829"></p>
 <p><img src="/2020/10/26/first-blog/image-20201027175642042.png" alt="image-20201027175642042"></p>
-<p>​       然后在<strong>git-bash</strong>命令行里输入<code>hexo d</code> ，将blog部署到github远端，过程中输入**github的用户名和密码(第一次部署要输入)**，即可完成远端部署。</p>
+<p>​       然后在<strong>git-bash</strong>命令行里输入<code>hexo d</code> ，将blog部署到github远端，过程中输入<strong>github的用户名和密码(第一次部署要输入)</strong>，即可完成远端部署。</p>
 <p><img src="/2020/10/26/first-blog/image-20201027180949005.png" alt="image-20201027180949005"></p>
 <hr>
-<h2 id="Blog发布的步骤"><a href="#Blog发布的步骤" class="headerlink" title="Blog发布的步骤"></a>Blog发布的步骤</h2><h3 id="1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件"><a href="#1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件" class="headerlink" title="1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件"></a>1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</h3><h3 id="2-对md文件进行编辑"><a href="#2-对md文件进行编辑" class="headerlink" title="2.对md文件进行编辑"></a>2.对md文件进行编辑</h3><h3 id="3-在cmd命令行里输入-hexo-g-，生成blog"><a href="#3-在cmd命令行里输入-hexo-g-，生成blog" class="headerlink" title="3.在cmd命令行里输入 hexo -g ，生成blog"></a>3.在cmd命令行里输入 hexo -g ，生成blog</h3><h3 id="4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000"><a href="#4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000" class="headerlink" title="(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))"></a>(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))</h3><h3 id="5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io"><a href="#5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io" class="headerlink" title="5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)"></a>5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</h3><hr>
+<h2 id="Blog发布的步骤"><a href="#Blog发布的步骤" class="headerlink" title="Blog发布的步骤"></a>Blog发布的步骤</h2><h3 id="1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件"><a href="#1-在cmd命令行里先将路径转到blog文件夹，再输入-hexo-n-“new-blog”，创建md文件" class="headerlink" title="1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件"></a>1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</h3><h3 id="2-对md文件进行编辑"><a href="#2-对md文件进行编辑" class="headerlink" title="2.对md文件进行编辑"></a>2.对md文件进行编辑</h3><h3 id="3-在cmd命令行里输入-hexo-g-，生成blog"><a href="#3-在cmd命令行里输入-hexo-g-，生成blog" class="headerlink" title="3.在cmd命令行里输入 hexo g ，生成blog"></a>3.在cmd命令行里输入 hexo g ，生成blog</h3><h3 id="4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000"><a href="#4-在cmd命令行里输入-hexo-s-，启动blog平台-localhost-4000" class="headerlink" title="(4.在cmd命令行里输入 hexo s ，启动blog平台(localhost:4000))"></a>(4.在cmd命令行里输入 hexo s ，启动blog平台(localhost:4000))</h3><h3 id="5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io"><a href="#5-在git-bash里先将路径转到blog文件夹，输入-hexo-d-，将blog部署到公网网址-用户名-github-io" class="headerlink" title="5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)"></a>5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</h3><hr>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="本地图片无法显示"><a href="#本地图片无法显示" class="headerlink" title="本地图片无法显示"></a>本地图片无法显示</h3><p>解决方法：首先在<strong>git-bash</strong>里输入<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code>，安装好插件后打开<strong>_config.yml</strong>文件，修改<code>post_asset_folder: false</code>为<code>post_asset_folder: true</code>。最后在<strong>blog/public/2020/10/26/first-blog</strong>处放入<strong>blog/source/_posts/first-blog.assets</strong>文件夹里的全部图片。</p>
 <p>解释：first-blog.assets为你编写的blog文件所使用的图片文件夹，当你放入图片到md文档时，会自动将图片保存到first-blog.assets里。hexo-asset-image是一个插件，可以将本地图片以正确格式插入到网页源码里。修改_config.yml的目的是让hexo能够调用该插件。blog的发布网址本质上是一个网站，该网站保存在public文件夹里。而每个博客都有自己的一个网页，hexo根据博客发布的时间来放置每个博客的index.html。以本博客为例，发布时间为2020/10/26，则hexo会在public文件夹里创建2020文件夹，在2020文件夹里创建10文件夹，以此类推，最后在26文件夹里创建博客文件夹，即以博客名命名的文件夹，这个文件夹下就放置本博客的index.html。hexo-assets-image的作用就是将图片的引用地址设置在此文件夹下，所以需要将本博客的图片文件夹first-blog.assets里的全部图片放到index.html所在的文件夹里，即可实现图片相对路径的调用，也就解决此问题。</p>
 
@@ -426,7 +426,7 @@
   <p><span>本文标题:</span>Windows10下使用Hexo和Github搭建个人博客</a></p>
   <p><span>文章作者:</span>邹宽</a></p>
   <p><span>发布时间:</span>2020年10月26日 - 18:50:14</p>
-  <p><span>最后更新:</span>2020年11月12日 - 16:23:13</p>
+  <p><span>最后更新:</span>2021年01月05日 - 16:34:19</p>
   <p><span>许可协议:</span><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p> 
 </div>
 <script> 
@@ -532,7 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E6%96%B9%E5%BC%8F%E6%89%93%E5%BC%80cmd"><span class="nav-number">2.1.</span> <span class="nav-text">1.以管理员方式打开cmd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%B9%B6%E9%AA%8C%E8%AF%81Node%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="nav-number">2.2.</span> <span class="nav-text">2.查看并验证Node安装结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85%E6%B7%98%E5%AE%9D%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8cnpm"><span class="nav-number">2.3.</span> <span class="nav-text">3.安装淘宝的包管理器cnpm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85hexo"><span class="nav-number">2.4.</span> <span class="nav-text">4.安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%9B%E5%BB%BABlog%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.5.</span> <span class="nav-text">5.创建Blog文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%85%8D%E7%BD%AEGit"><span class="nav-number">2.6.</span> <span class="nav-text">6.配置Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Blog%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.7.</span> <span class="nav-text">7.Blog初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%85%8D%E7%BD%AE%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80"><span class="nav-number">2.8.</span> <span class="nav-text">8.配置公网网址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog%E5%8F%91%E5%B8%83%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">Blog发布的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%86%8D%E8%BE%93%E5%85%A5-hexo-n-%E2%80%9Cnew-blog%E2%80%9D%EF%BC%8C%E5%88%9B%E5%BB%BAmd%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AF%B9md%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.</span> <span class="nav-text">2.对md文件进行编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-g-%EF%BC%8C%E7%94%9F%E6%88%90blog"><span class="nav-number">3.3.</span> <span class="nav-text">3.在cmd命令行里输入 hexo -g ，生成blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-s-%EF%BC%8C%E5%90%AF%E5%8A%A8blog%E5%B9%B3%E5%8F%B0-localhost-4000"><span class="nav-number">3.4.</span> <span class="nav-text">(4.在cmd命令行里输入 hexo -s ，启动blog平台(localhost:4000))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%9C%A8git-bash%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E8%BE%93%E5%85%A5-hexo-d-%EF%BC%8C%E5%B0%86blog%E9%83%A8%E7%BD%B2%E5%88%B0%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80-%E7%94%A8%E6%88%B7%E5%90%8D-github-io"><span class="nav-number">3.5.</span> <span class="nav-text">5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA"><span class="nav-number">4.1.</span> <span class="nav-text">本地图片无法显示</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E6%96%B9%E5%BC%8F%E6%89%93%E5%BC%80cmd"><span class="nav-number">2.1.</span> <span class="nav-text">1.以管理员方式打开cmd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%B9%B6%E9%AA%8C%E8%AF%81Node%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="nav-number">2.2.</span> <span class="nav-text">2.查看并验证Node安装结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85%E6%B7%98%E5%AE%9D%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8cnpm"><span class="nav-number">2.3.</span> <span class="nav-text">3.安装淘宝的包管理器cnpm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85hexo"><span class="nav-number">2.4.</span> <span class="nav-text">4.安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%9B%E5%BB%BABlog%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.5.</span> <span class="nav-text">5.创建Blog文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%85%8D%E7%BD%AEGit"><span class="nav-number">2.6.</span> <span class="nav-text">6.配置Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Blog%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.7.</span> <span class="nav-text">7.Blog初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%85%8D%E7%BD%AE%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80"><span class="nav-number">2.8.</span> <span class="nav-text">8.配置公网网址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog%E5%8F%91%E5%B8%83%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">Blog发布的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%86%8D%E8%BE%93%E5%85%A5-hexo-n-%E2%80%9Cnew-blog%E2%80%9D%EF%BC%8C%E5%88%9B%E5%BB%BAmd%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.在cmd命令行里先将路径转到blog文件夹，再输入 hexo n “new blog”，创建md文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AF%B9md%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.</span> <span class="nav-text">2.对md文件进行编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-g-%EF%BC%8C%E7%94%9F%E6%88%90blog"><span class="nav-number">3.3.</span> <span class="nav-text">3.在cmd命令行里输入 hexo g ，生成blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%9C%A8cmd%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%87%8C%E8%BE%93%E5%85%A5-hexo-s-%EF%BC%8C%E5%90%AF%E5%8A%A8blog%E5%B9%B3%E5%8F%B0-localhost-4000"><span class="nav-number">3.4.</span> <span class="nav-text">(4.在cmd命令行里输入 hexo s ，启动blog平台(localhost:4000))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%9C%A8git-bash%E9%87%8C%E5%85%88%E5%B0%86%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%88%B0blog%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E8%BE%93%E5%85%A5-hexo-d-%EF%BC%8C%E5%B0%86blog%E9%83%A8%E7%BD%B2%E5%88%B0%E5%85%AC%E7%BD%91%E7%BD%91%E5%9D%80-%E7%94%A8%E6%88%B7%E5%90%8D-github-io"><span class="nav-number">3.5.</span> <span class="nav-text">5.在git-bash里先将路径转到blog文件夹，输入 hexo d ，将blog部署到公网网址(用户名.github.io)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA"><span class="nav-number">4.1.</span> <span class="nav-text">本地图片无法显示</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -548,7 +548,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -561,7 +561,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -608,7 +608,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">32k</span>
 </div>
         
 
